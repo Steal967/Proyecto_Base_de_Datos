@@ -15,7 +15,7 @@ CREATE TABLE Promociones (
     fecha_fin DATE
 );
 
-ALTER TABLE RECAEGAS ADD COLUMN promocion_id INT REFERENCES Promociones(promocion_id);
+ALTER TABLE RECARGAS ADD COLUMN promocion_id INT REFERENCES Promociones(promocion_id);
 
 CREATE TABLE Dispositivos (
     dispositivo_id SERIAL PRIMARY KEY,
