@@ -1,0 +1,125 @@
+erDiagram
+    USUARIOS ||--o{ TARJETAS : posee
+    TARJETAS ||--o{ RECARGAS : recargan
+    TARJETAS ||--o{ VIAJES : usan
+    TARJETAS ||--o{ AUDITORIA_TARJETAS : auditan
+    RECARGAS }o--|| PROMOCIONES : aplica
+    LOCALIDADES ||--o{ PUNTOS_RECARGA : pertenece
+    LOCALIDADES ||--o{ ESTACIONES : incluyen
+    PUNTOS_RECARGA ||--o{ RECARGAS : se_hacen_en
+    TARIFAS ||--o{ VIAJES : definen
+    ESTACIONES ||--o{ RUTAS : inician
+    RUTAS ||--o{ ESTACIONES_INTERMEDIAS : contienen
+    ESTACIONES ||--o{ ESTACIONES_INTERMEDIAS : se_incluyen
+    DISPOSITIVOS ||--o{ VIAJES : registran
+    VIAJES ||--o{ TIPOS_ALERTAS : generan
+
+    USUARIOS {
+        int usuario_id PK
+        string nombre
+        string apellido
+        string numero_contacto
+        string correo_electronico
+        string genero
+        date fecha_nacimiento
+        string direccion_residencia
+        string numero_cedula
+        string ciudad_nacimiento
+        date fecha_registro
+    }
+
+    TARJETAS {
+        int tarjeta_id PK
+        int usuario_id FK
+        date fecha_adquisicion
+        string estado
+        date fecha_actualizacion
+    }
+
+    RECARGAS {
+        int recarga_id PK
+        date fecha
+        float monto
+        int punto_recarga_id FK
+        int tarjeta_id FK
+        int promocion_id FK
+    }
+
+    PUNTOS_RECARGA {
+        int punto_recarga_id PK
+        string direccion
+        float latitud
+        float longitud
+        int localidad_id FK
+    }
+
+    LOCALIDADES {
+        int localidad_id PK
+        string nombre
+    }
+
+    TARIFAS {
+        int tarifa_id PK
+        float valor
+        date fecha
+    }
+
+    VIAJES {
+        int viaje_id PK
+        int estacion_aborde_id FK
+        int estacion_origen_id FK
+        int estacion_destino_id FK
+        int tarifa_id FK
+        int tarjeta_id FK
+        int dispositivo_id FK
+        date fecha
+    }
+
+    ESTACIONES {
+        int estacion_id PK
+        string nombre
+        string direccion
+        int localidad_id FK
+        float latitud
+        float longitud
+    }
+
+    RUTAS {
+        int ruta_id PK
+        int estacion_origen_id FK
+        int estacion_destino_id FK
+    }
+
+    ESTACIONES_INTERMEDIAS {
+        int estacion_id PK,FK
+        int ruta_id PK,FK
+    }
+
+    AUDITORIA_TARJETAS {
+        int auditoria_id PK
+        int tarjeta_id FK
+        string estado_anterior
+        string estado_nuevo
+        timestamp fecha_cambio
+    }
+
+    PROMOCIONES {
+        int promocion_id PK
+        string nombre
+        string descripcion
+        string tipo
+    }
+
+    DISPOSITIVOS {
+        int dispositivo_id PK
+        string tipo
+        string ubicacion
+    }
+
+    TIPOS_ALERTAS {
+        int incidencia_id PK
+        int viaje_id FK
+        string descripcion
+        string tipo
+        timestamp fecha
+    }
