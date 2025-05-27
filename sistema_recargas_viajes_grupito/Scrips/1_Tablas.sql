@@ -19,7 +19,7 @@ ALTER TABLE RECARGAS ADD COLUMN promocion_id INT REFERENCES Promociones(promocio
 
 CREATE TABLE Dispositivos (
     dispositivo_id SERIAL PRIMARY KEY,
-    tipo VARCHAR(50), -- 'torniquete', 'movil', etc.
+    tipo VARCHAR(50),
     ubicacion TEXT
 );
 
