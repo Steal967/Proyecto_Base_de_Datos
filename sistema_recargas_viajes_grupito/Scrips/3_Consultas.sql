@@ -1,3 +1,4 @@
+--Consultar historial de cambios de estado de una tarjeta específica
 SELECT 
     at.tarjeta_id,
     at.estado_anterior,
@@ -7,6 +8,7 @@ FROM auditoria_tarjetas at
 WHERE at.tarjeta_id = 3
 ORDER BY at.fecha_cambio DESC;
 
+--Listar recargas que usaron promociones activas
 SELECT 
     r.recarga_id,
     r.fecha,
@@ -17,6 +19,7 @@ FROM recargas r
 JOIN promociones p ON r.promocion_id = p.promocion_id
 ORDER BY r.fecha DESC;
 
+--Dispositivos instalados por tipo y ubicación
 SELECT 
     tipo,
     COUNT(*) AS cantidad,
@@ -24,6 +27,7 @@ SELECT
 FROM dispositivos
 GROUP BY tipo;
 
+--Alertas registradas en viajes con detalle del tipo y frecuencia
 SELECT 
     tipo,
     COUNT(*) AS total_alertas
