@@ -36,3 +36,25 @@ CREATE TABLE tipos_alertas (
     tipo VARCHAR(50),
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+--Número de alertas generadas por día
+SELECT 
+    DATE(fecha) AS fecha_alerta,
+    COUNT(*) AS total_alertas
+FROM tipos_alertas
+GROUP BY DATE(fecha)
+ORDER BY fecha_alerta;
+
+--Detalle de alertas con origen de viaje y dispositivo
+SELECT 
+    ta.incidencia_id,
+    ta.descripcion,
+    ta.tipo,
+    ta.fecha,
+    v.tarjeta_id,
+    v.estacion_aborde_id,
+    v.dispositivo_id
+FROM tipos_alertas ta
+JOIN viajes v ON ta.viaje_id = v.viaje_id
+ORDER BY ta.fecha DESC;
+
